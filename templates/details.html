@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Thought-Details</title>    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container jumbotron bg-dark text-white">
+        <div class="row">
+            <button class="btn bg-primary m-1"><a class="text-white" href="/success">Dashboard</a></button>
+            <button class="btn bg-primary m-1"><a class="text-white" href="/logout">Logout</a></button>
+        </div>
+        <div class="row p-3">
+            <div class="col-8">
+                <h4>{{thought['first_name']}} says:</h4>
+                <div class="card mt-3 mb-3">
+                    <div class="card body text-primary p-3">
+                        <p>{{thought['content']}}</p>
+                    </div>
+                </div>
+                {% if thought['id_thoughts'] in liked_thought_ids %}
+                <p><a href="/unlike_thought/{{thought['id_thoughts']}}"><button>Unlike</button></a></p>
+                {% else %}
+                <p><a href="/like_thought/{{thought['id_thoughts']}}"><button>Like</button></a></p>
+                {% endif %}
+                <p>People who have liked this tweet:</p>
+                <table class="table bg-primary text-white">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in user_who_have_liked %}
+                            <tr>
+                                <td>{{user['first_name']}}</td>
+                                <td>{{user['last_name']}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

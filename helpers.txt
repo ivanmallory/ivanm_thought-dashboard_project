@@ -1,0 +1,16 @@
+sudo vim /etc/systemd/system/thought-dashboard-deploy.service
+
+[Unit]
+Description=Gunicorn instance to serve thought-dashboard-deploy
+After=network.target
+[Service]
+User=ivan
+Group=www-data
+WorkingDirectory=/home/ivan/thought-dashboard-deploy
+Environment="PATH=/home/ivan/thought-dashboard-deploy/venv/bin"
+ExecStart=/home/ivan/thought-dashboard-deploy/venv/bin/gunicorn --workers 3 --bind unix:thought-dashboard-deploy.sock -m 007 wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl start thought-dashboard-deploy
+sudo systemctl enable thought-dashboard-deploy
